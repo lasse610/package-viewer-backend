@@ -1,0 +1,6 @@
+{
+    "db": "mongodb://localhost/debianParser",
+    "port": "3900",
+    "file": "status.real",
+    "separator":"@@"
+  }

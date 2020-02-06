@@ -5,7 +5,7 @@ const config = require('config');
 
 
 async function seed() {
-    const db = config.get('db')
+    const db = config.get('db');
     await mongoose.connect(db, {
       useUnifiedTopology: true,
       useNewUrlParser: true,

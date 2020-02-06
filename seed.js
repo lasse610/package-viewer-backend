@@ -9,7 +9,7 @@ async function seed() {
     await mongoose.connect(db, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
-      }).then(() => console.log(`Connected to ${db}...`));;
+      }).then(() => console.log(`Connected to ${db}...`));
     const packages = await parser(config.get('file'),config.get('separator'));
     await Package.insertMany(packages);
     mongoose.disconnect();

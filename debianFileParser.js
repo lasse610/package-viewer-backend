@@ -1,6 +1,6 @@
-const readline = require("readline");
-const fs = require("fs");
-const {Package} = require("./models/package");
+const readline = require('readline');
+const fs = require('fs');
+const {Package} = require('./models/package');
 
 
 //Takes file name (String) and separator(String)
@@ -16,13 +16,13 @@ async function separatePackages(file, separator) {
     //Create linereader
     const linereader = readline.createInterface({
         input: fs.createReadStream(file),
-        setEncoding: "utf-8"
+        setEncoding: 'utf-8'
     });
     let allPackages = [];
-    let latestPackage = "";
+    let latestPackage = '';
     const result =  await new Promise(resolve => { 
     linereader
-    .on("line", function(line) {
+    .on('line', function(line) {
         //Check if multiline value ex. description. Starts with a single space
         if(/^\s/.test(line)) latestPackage += line;
         /*
@@ -33,20 +33,20 @@ async function separatePackages(file, separator) {
         else if (/^\s*$/.test(line)) {
             // In case of two empty lines. Sometimes in the end of the file.
             // No need to add package to allPackages.
-            if(latestPackage !== "") allPackages.push(latestPackage);   
-            latestPackage = "";
+            if(latestPackage !== '') allPackages.push(latestPackage);   
+            latestPackage = '';
         }
         // Chek if latest Package is empty. Used when parsing a new package.
-        else if(latestPackage === "") latestPackage += line;
+        else if(latestPackage === '') latestPackage += line;
         /*
         Key value pair parsed, add an separator for later use.
         Needed later when parsing individual Packages.
         */
         else latestPackage += `${separator}${line}`;
      })
-     .on("close", function() { 
+     .on('close', function() { 
          //If file ends without an empty line, add the latestPackage to allPackages
-        if(latestPackage !== "") allPackages.push(latestPackage);    
+        if(latestPackage !== '') allPackages.push(latestPackage);    
         resolve(allPackages);
      }); 
     });
@@ -71,7 +71,7 @@ async function parsePackageFields(packages, separator) {
         for(let j in fields) {
             //Separate key and value. 
             keyValuePair = fields[j].split(/:\s/);
-            if(keyValuePair[0].trim() === "Depends") {
+            if(keyValuePair[0].trim() === 'Depends') {
                 /*
                 Remove version numbers from depends field, trim whitespace,
                 and generate an Array of dependencies.

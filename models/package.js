@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const Package = mongoose.model("Package", new mongoose.Schema({
+const Package = mongoose.model('Package', new mongoose.Schema({
     package: {
         type:String,
         required: true,

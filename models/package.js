@@ -5,7 +5,7 @@ const Package = mongoose.model('Package', new mongoose.Schema({
         type:String,
         required: true,
     },
-    depends: [String],
+    depends: [[String]],
     description: {
         type: String,
         required: true,

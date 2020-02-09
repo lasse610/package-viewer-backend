@@ -74,10 +74,14 @@ async function parsePackageFields(packages, separator) {
             if(keyValuePair[0].trim() === 'Depends') {
                 /*
                 Remove version numbers from depends field, trim whitespace,
-                and generate an Array of dependencies.
+                and generate an Array of dependencies. Single Dependencies are stored as an Array because some 
+                packages have multiple alternative dependencies, if that is the case the Array vontains multiple 
+                packge names.
                 Key is now a key in currentPackage dictionary.
                 */
-                currentPackage['Depends'] = keyValuePair[1].replace(/\s?\([^()]*\)\s?/g, '').split(/\s?,\s?/);
+                const arrayOfPackages =  keyValuePair[1].replace(/\s?\([^()]*\)\s?/g, '').split(/\s?,\s?/);
+                //Separate packages divided by the "|"" character
+                currentPackage['Depends'] = arrayOfPackages.map(dependency => dependency.split(/\s?\|\s?/));
             } 
             else {    
                 //Make key a key in currentPackage dictionary, and value the value.
@@ -112,7 +116,7 @@ async function getReverseDependencies(packages){
             //Check if package has dependencies
             if(packages[packages[keys[i]].depends[j]]) {
             //Mark parent as reverse dependency of child
-            packages[packages[keys[i]].depends[j]].reverseDeps.push(packages[keys[i]].package);
+            packages[packages[keys[i]].depends[j][0]].reverseDeps.push(packages[keys[i]].package);
             }
     
         }
@@ -121,6 +125,7 @@ async function getReverseDependencies(packages){
     //return all Package Objects
     return Object.values(packages);
 }
+
 
 module.exports = debianFileParser;
         

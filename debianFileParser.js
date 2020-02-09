@@ -96,7 +96,7 @@ async function parsePackageFields(packages, separator) {
             package: currentPackage.Package,
             depends: currentPackage.Depends,
             description: currentPackage.Description,
-            installed_size: currentPackage['Installed-Size'],
+            installed_size: parseInt(currentPackage['Installed-Size']),
             section: currentPackage.Section,
             reverseDeps: []
         });

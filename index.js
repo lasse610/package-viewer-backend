@@ -5,6 +5,7 @@ const app = express();
 require('./startup/cors')(app);
 require('./startup/routes')(app);
 require('./startup/db')();
+require('./startup/prod')(app);
 
 const port = process.env.PORT || config.get('port');
 app.listen(port, () => console.log(`Listening on port ${port}`));

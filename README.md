@@ -1,6 +1,8 @@
 ## Introduction
 This project is a backend for a debian control file viewer.
 
+It is live at: [https://limitless-badlands-33802.herokuapp.com/api/packages](https://limitless-badlands-33802.herokuapp.com/api/packages)
+
 ## Setup
 Make sure to follow all these steps exactly as explained below. Do not miss any steps or you won't be able to run this application.
 
